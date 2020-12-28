@@ -10,15 +10,22 @@ public final class HeavenlyBody {
     private final String name;
     private final double orbitalPeriod;
     private final Set<HeavenlyBody> satellites;
+    private final Enum<BodyType> bodyType;
 
-    public HeavenlyBody(String name, double orbitalPeriod) {
+    public HeavenlyBody(Enum<BodyType> bodyType, String name, double orbitalPeriod) {
         this.name = name;
+        this.bodyType = bodyType;
         this.orbitalPeriod = orbitalPeriod;
         this.satellites = new HashSet<>();
     }
 
     public String getName() {
         return name;
+    }
+
+    public Enum<BodyType> getBodyType()
+    {
+        return bodyType;
     }
 
     public double getOrbitalPeriod() {
@@ -47,7 +54,8 @@ public final class HeavenlyBody {
         }
 
         String objName = ((HeavenlyBody) obj).getName();
-        return this.name.equals(objName);
+        Enum<BodyType> objType= ((HeavenlyBody) obj).getBodyType();
+        return (this.name.equals(objName) && this.bodyType.equals(objType));
     }
 
     @Override
