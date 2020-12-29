@@ -6,13 +6,13 @@ import java.util.Set;
 /**
  * Created by dev on 12/01/2016.
  */
-public final class HeavenlyBody {
+public class HeavenlyBody {
     private final String name;
     private final double orbitalPeriod;
     private final Set<HeavenlyBody> satellites;
-    private final Enum<BodyType> bodyType;
+    private final BodyType bodyType;
 
-    public HeavenlyBody(Enum<BodyType> bodyType, String name, double orbitalPeriod) {
+    public HeavenlyBody(BodyType bodyType, String name, double orbitalPeriod) {
         this.name = name;
         this.bodyType = bodyType;
         this.orbitalPeriod = orbitalPeriod;
@@ -23,7 +23,7 @@ public final class HeavenlyBody {
         return name;
     }
 
-    public Enum<BodyType> getBodyType()
+    public BodyType getBodyType()
     {
         return bodyType;
     }
@@ -32,8 +32,8 @@ public final class HeavenlyBody {
         return orbitalPeriod;
     }
 
-    public boolean addMoon(HeavenlyBody moon) {
-        return this.satellites.add(moon);
+    public boolean addSatellite(HeavenlyBody moon) {
+        return moon.getBodyType() == BodyType.MOON ? this.satellites.add(moon) : false;
     }
 
     public Set<HeavenlyBody> getSatellites() {
@@ -42,25 +42,26 @@ public final class HeavenlyBody {
 
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if(this == obj) {
             return true;
         }
-
-        System.out.println("obj.getClass() is " + obj.getClass());
-        System.out.println("this.getClass() is " + this.getClass());
-        if ((obj == null) || (obj.getClass() != this.getClass())) {
-            return false;
+        if (obj instanceof HeavenlyBody)
+        {
+            HeavenlyBody newBody = (HeavenlyBody) obj;
+            return newBody.getName().equals(this.getName()) && newBody.getBodyType().equals(this.getBodyType());
         }
-
-        String objName = ((HeavenlyBody) obj).getName();
-        Enum<BodyType> objType= ((HeavenlyBody) obj).getBodyType();
-        return (this.name.equals(objName) && this.bodyType.equals(objType));
+        return false;
     }
 
     @Override
-    public int hashCode() {
-        System.out.println("hashcode called");
+    public final int hashCode() {
         return this.name.hashCode() + 57;
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.name + ",\t" + this.bodyType + ",\t" + this.orbitalPeriod;
     }
 }
