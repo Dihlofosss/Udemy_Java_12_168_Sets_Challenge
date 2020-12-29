@@ -70,9 +70,15 @@ public class Main {
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 
-        temp = new HeavenlyBody(BodyType.PLANET,"Pluto", 248);
+        temp = new HeavenlyBody(BodyType.DWARF_PLANET,"Pluto", 248);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
+
+        temp = new HeavenlyBody(BodyType.COMET, "ID_82612", 9000);
+        solarSystem.put(temp.getName(), temp);
+
+        tempMoon = new HeavenlyBody(BodyType.ASTEROID, "ID_82612", 9000);
+        solarSystem.put(tempMoon.getName(), tempMoon);
 
         System.out.println("Planets");
         for(HeavenlyBody planet : planets) {

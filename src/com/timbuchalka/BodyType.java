@@ -4,5 +4,8 @@ public enum BodyType
 {
 	STAR,
 	PLANET,
-	MOON
+	MOON,
+	DWARF_PLANET,
+	ASTEROID,
+	COMET
 }
